@@ -2,6 +2,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.utils import timezone
 from .models import Post
 from .forms import BlogPostForm
+from accounts.views import registration
 
 
 def get_posts(request):

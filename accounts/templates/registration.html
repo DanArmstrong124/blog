@@ -8,7 +8,10 @@
     
     
 {% block page_content %}
-<p>If you already have an account, you can <a href='{% url 'login' %}'>Sign In</a>!</p>
+<hr>
+<h4>You will need an account to access our blog!</h4>
+<hr>
+<p>If you already have an account, you can <a href='{% url 'login' %}' style="color: #12AB82;">Sign In</a>!</p>
 
     <form method="POST">
         {% csrf_token %}

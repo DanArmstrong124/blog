@@ -1,5 +1,7 @@
 {% extends "base.html" %}
-{% block content %}
+{% block page_title %}MEMS - {{ post.title }}{% endblock %}
+
+{% block page_content %}
     <div class="row">
         <div class="col-md-2 col-sm-3 text-center">
             <a class="story-img" href="#">
@@ -19,7 +21,9 @@
                     <p><span class="boldtext">Views:</span> {{post.views}}</p>
                     <p><span class="boldtext">Tag:</span> {{ post.tag }}</p>
                     <a href="{% url 'get_posts' %}" class="btn btn-default">Back to Blog</a>
+                    {% if user.is_superuser %}
                     <a href="{% url 'edit_post' post.id %}" class="btn btn-default">Edit Post</a>
+                    {% endif %}
                     <hr>
                 </div>
             </div>

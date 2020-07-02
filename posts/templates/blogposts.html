@@ -1,12 +1,15 @@
 {% extends 'base.html' %}
-{% block content %}
+
+{% block page_title %}MEMS - POSTS{% endblock %}
+
+{% block page_content %}
     {% for post in posts %}
         <div class="row">
             <div class="col-md-2 col-sm-3 text-center">
                 <a class="story-img" href="#">
                     <img src="/media/img/profile.jpg" style="border-radius: 50%;" class="img-circle">
                 </a>
-                <p><span class="boldtext">Author:</span> DISNEY FAN</p>
+                <p><span class="boldtext">Author:</span>TEST</p>
             </div>
             <div class="col-md-10 col-sm-9">
                 <h3>{{ post.title }}</h3>

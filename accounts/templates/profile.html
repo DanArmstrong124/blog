@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block page_title %}{{ user }}'s Profile{% endblock %}
+
+{% block page_heading %}{{ user }}'s Profile{% endblock %}
+
+{% block page_content %}
+
+<h2 style="border-bottom: 1px solid black;">Details</h2>
+<h3>Email:</h3>
+<p>{{ profile.email }}</p>
+<h3>Date Joined:</h3>
+<p>{{ profile.date_joined }}</p>
+<h3>Last Login:</h3>
+<p>{{ profile.last_login }}</p>
+{% endblock %}

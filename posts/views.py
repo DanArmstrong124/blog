@@ -10,9 +10,13 @@ def get_posts(request):
     of Posts that were published prior to 'now'
     and render them to the 'blogposts.html' template
     """
-    posts = Post.objects.filter(published_date__lte=timezone.now()
-        ).order_by('-published_date')
-    return render(request, "blogposts.html", {'posts': posts})
+    if request.user.is_authenticated:
+        posts = Post.objects.filter(published_date__lte=timezone.now()
+            ).order_by('-published_date')
+        return render(request, "blogposts.html", {'posts': posts})
+    else:
+        return(redirect(reverse('registration')))
+        
 
 
 def post_detail(request, pk):
@@ -23,10 +27,14 @@ def post_detail(request, pk):
     Or return a 404 error if the post is
     not found
     """
-    post = get_object_or_404(Post, pk=pk)
-    post.views += 1
-    post.save()
-    return render(request, "postdetail.html", {'post': post})
+    if request.user.is_authenticated:
+        post = get_object_or_404(Post, pk=pk)
+        post.views += 1
+        post.save()
+        return render(request, "postdetail.html", {'post': post})
+    else:
+        return(redirect(reverse('registration')))
+        
 
 
 def create_or_edit_post(request, pk=None):
@@ -35,12 +43,16 @@ def create_or_edit_post(request, pk=None):
     or edit a post depending if the Post ID
     is null or not
     """
-    post = get_object_or_404(Post, pk=pk) if pk else None
-    if request.method == "POST":
-        form = BlogPostForm(request.POST, request.FILES, instance=post)
-        if form.is_valid():
-            post = form.save()
-            return redirect(post_detail, post.pk)
+    if request.user.is_authenticated:
+        post = get_object_or_404(Post, pk=pk) if pk else None
+        if request.method == "POST":
+            form = BlogPostForm(request.POST, request.FILES, instance=post)
+            if form.is_valid():
+                post = form.save()
+                return redirect(post_detail, post.pk)
+        else:
+            form = BlogPostForm(instance=post)
+        return render(request, 'blogpostform.html', {'form': form})
     else:
-        form = BlogPostForm(instance=post)
-    return render(request, 'blogpostform.html', {'form': form})
+        return(redirect(reverse('registration')))
+        

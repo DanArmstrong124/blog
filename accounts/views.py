@@ -64,6 +64,7 @@ def registration(request):
 def user_profile(request):
     """The user's profile page"""
     if request.user.is_authenticated:
-        return(redirect(reverse('get_posts')))
-    user = User.objects.get(email=request.user.email)
-    return render(request, 'profile.html', {"profile": user})
+        user = User.objects.get(email=request.user.email)
+        return render(request, 'profile.html', {"profile": user})
+    else:
+        return(redirect(reverse('registration')))
